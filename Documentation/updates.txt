@@ -2,4 +2,6 @@
 10/4/2024- Today i sketched random UI designs for the webpage
 10/4/2-24-nothing much, just made few updates about ui/ux
 12/1/2024- Made login struc
-12/2/2024- had issues with accessing ports.Still fixing. 
+12/2/2024- had issues with accessing ports.Still fixing. PS fixed with reinstallation
+
+
