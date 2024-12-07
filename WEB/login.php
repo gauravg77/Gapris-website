@@ -12,7 +12,7 @@
     <div class="container">
         <h1 class="form-title">Sign In</h1>
        
-        <form method="POST" action="">
+        <form method="POST" action="user-account.php">
     <div class="input-group">
         <i class="fas fa-envelope"></i>
         <input type ="email" name="email" id="email" placeholder="email or username">
