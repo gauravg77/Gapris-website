@@ -15,25 +15,26 @@
     <div class="container" id="signup">
         <h1 class="form-title">Register</h1>
         
-        <form method="POST" action="user-account.php">
+        <form method="POST" action="user-acc.php"  Autocomplete="off">
             <div class="input-group">
                 <i class="fas fa-user"></i>
-                <input type="text" name="name" id="name" placeholder="Name" required>
+                <input type="text" name="name" id="name" placeholder="Name"  Autocomplete="off"  required>
             </div>
 
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
-                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="email" name="email" id="email" placeholder="Email" Autocomplete="off" required>
              
             </div>
             <div class="input-group password">
                 <i class="fas fa-lock"></i>
-                <input type="password" name="password" id="password" placeholder="Password" >
-                <i id="eye" class="fa fa-eye"></i>
+                <input type="password" name="password" id="password" placeholder="Password" Autocomplete="off"  >
+                <i id="eye" name='eye' class="fa fa-eye"></i>
             </div>
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" name="confirmpassword" placeholder="Confirm Password" required>
+                <input type="password" name="confirmpassword" placeholder="Confirm Password"  Autocomplete="off"  required>
+                <i id="eye" name='eye' class="fa fa-eye"></i>
             </div>
             <input type="submit" class="btn" value="Sign Up" name="signup">
         </form>
