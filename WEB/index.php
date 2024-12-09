@@ -29,12 +29,12 @@
             <div class="input-group password">
                 <i class="fas fa-lock"></i>
                 <input type="password" name="password" id="password" placeholder="Password" Autocomplete="off"  >
-                <i id="eye" name='eye' class="fa fa-eye"></i>
+                <i id="eye-password" class=""></i>
             </div>
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" name="confirmpassword" placeholder="Confirm Password"  Autocomplete="off"  required>
-                <i id="eye" name='eye' class="fa fa-eye"></i>
+                <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password"  Autocomplete="off"  required>
+                <i id="eye-confirmpassword" class=""></i>
             </div>
             <input type="submit" class="btn" value="Sign Up" name="signup">
         </form>
