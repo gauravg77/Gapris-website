@@ -10,7 +10,8 @@
 
 12/6/2024- Got to know about spline and farmer, got knowledge about it a lil, planning to integrate it to the web as well 
 
-12/2/2024- i was facing issues with email duplication( fixed). I am facing issues with being registered even after passwords not matching.( fixed, it was because i was using 'error' instead of 'errors' due to which error wasn't being detected'
+12/2/2024- i was facing issues with email duplication( fixed). I am facing issues with being registered even after passwords not matching.( fixed, it was because i was using 'error' instead of 'errors' due to which error wasn't being detected'. Every error is being handles in diff frame, now i have next work to show error in same form.still trying to fix visibility toggle
+
 
 
 
