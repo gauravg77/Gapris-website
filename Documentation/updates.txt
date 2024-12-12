@@ -14,7 +14,10 @@
 
 12/10/2024- i am learning about how to integrate esewa to the website. And visibility toggle is still not fixed.
 
-12/11/2024-didnt worked on eswea integration today, i watched uiux vids.
+12/11/2024-didnt worked on esewa integration today, i watched ui/ux vids.
+
+12/12/2024-started working on midterm documentation. 
+
 
 
 
