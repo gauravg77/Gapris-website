@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <h1 class="form-title">Recover Password</h1>
-        <form method="POST" action="forgot_password.php">
+        <form method="POST" action="forgotpassword.php">
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
                 <input type="email" name="email" id="email" placeholder="Enter your email" required>
