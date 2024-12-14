@@ -46,7 +46,7 @@
         </div>
         <div class="links">
             <p>Already Have Account ?</p>
-            <a href="loginstruc.php">Sign In</a>
+            <a href="loginstruc.php">Log In</a>
         </div>
     </div>
     <script src="script.js"></script>

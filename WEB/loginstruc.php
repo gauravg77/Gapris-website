@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="form-title">Sign In</h1>
+        <h1 class="form-title">Log In</h1>
        
     <form method="POST" action="shop.php">
     <div class="input-group">
@@ -25,7 +25,7 @@
     
     <input type="submit" class="btn" value="Sign In" name="Sign In">
     <p class="links">
-        <a href="#">Recover Password<a>
+        <a href="forgotpasswordstruc.php">Recover Password<a>
     </p>
     <div class="icons">
         <!-- <i class="fab fa-google"></i> -->
@@ -34,13 +34,11 @@
     <br>
     <div class="links">
     <p>Don't Have Account yet?</p>
-          <a href="registerstruc.php">Register Now</a>
+          <a href="registerstruc.php">Sign Up </a>
         </div>
-
-
- 
 </div>
 </form>
 </body>
 </html>
+
 
