@@ -28,14 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $expiry = time() + 3600; // Token will expire in 1 hour
 
                 // Insert token into the database
-                $stmt = $pdo->prepare("INSERT INTO password_resets (email, token, expiry,created_at) VALUES (:email, :token, :expiry,:created_at)");
-                $stmt->execute(['email' => $email, 'token' => $token, 'expiry' => $expiry,'created_at' => $created_at]);
+                $stmt = $pdo->prepare("INSERT INTO password_resets (email, token, expiry, created_at) VALUES (:email, :token, :expiry, :created_at)");
+                $stmt->execute(['email' => $email, 'token' => $token, 'expiry' => $expiry, 'created_at' => $created_at]);
+
+                // Set SMTP settings using ini_set() before sending the email
+                ini_set("SMTP", "smtp.gmail.com");  // Your SMTP server
+                ini_set("smtp_port", "587");  // Port for TLS
+                ini_set("sendmail_from", "merochitra8@gmail.com");  // Your email address
 
                 // Send the reset link via email
                 $resetLink = "http://yourwebsite.com/reset_password.php?token=$token";
                 $subject = "Password Reset Request";
                 $message = "To reset your password, click the following link: $resetLink";
-                $headers = "From: no-reply@yourwebsite.com";
+                $headers = "From: merochitra8@gmail.com";  // Your email address
 
                 if (mail($email, $subject, $message, $headers)) {
                     echo "Password reset link has been sent to your email.";
@@ -57,3 +62,4 @@ if (!empty($errors)) {
         echo "<p style='color:red;'>$error</p>";
     }
 }
+?>
