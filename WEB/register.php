@@ -27,18 +27,22 @@ if($password!==$confirmpassword){
       $errors[] = "Email is already registered.";
   }
 
-  //if no error then execute the code below 
-  if (empty($errors)) {
+  
+//if no error then execute the code below for REGISTER AND DIRECT LOGIN TO PAGE
+if (empty($errors)) {
     try {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $pdo->prepare("INSERT INTO users (name, email, password,created_at) VALUES (:name, :email, :password,:created_at)");
+        $stmt = $pdo->prepare("INSERT INTO users (name, email, password, created_at) VALUES (:name, :email, :password, :created_at)");
         $stmt->execute([
             'name' => $name,
             'email' => $email,
             'password' => $hashedPassword,
-            'created_at'=>$created_at
+            'created_at' => $created_at
         ]);
-        echo "User registered successfully!";
+
+        // Redirect to shop.php on successful registration
+        header("Location: shop.php");
+        exit(); // Ensure the script stops executing after redirection
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
@@ -47,7 +51,8 @@ if($password!==$confirmpassword){
         echo "<p>$error</p>";
     }
 }
+
+
 }
 ?>
 
-}
