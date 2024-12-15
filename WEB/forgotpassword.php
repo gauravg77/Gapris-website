@@ -1,5 +1,9 @@
-<?php
+<?php 
 require_once 'dbConnect.php'; 
+require 'vendor/autoload.php';  // Ensure PHPMailer is included
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 session_start();
 
 $errors = []; // Array to store errors
@@ -31,21 +35,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare("INSERT INTO password_resets (email, token, expiry, created_at) VALUES (:email, :token, :expiry, :created_at)");
                 $stmt->execute(['email' => $email, 'token' => $token, 'expiry' => $expiry, 'created_at' => $created_at]);
 
-                // Set SMTP settings using ini_set() before sending the email
-                ini_set("SMTP", "smtp.gmail.com");  // Your SMTP server
-                ini_set("smtp_port", "587");  // Port for TLS
-                ini_set("sendmail_from", "merochitra8@gmail.com");  // Your email address
+                // Use PHPMailer to send the email
+                $mail = new PHPMailer(true);
 
-                // Send the reset link via email
-                $resetLink = "http://yourwebsite.com/reset_password.php?token=$token";
-                $subject = "Password Reset Request";
-                $message = "To reset your password, click the following link: $resetLink";
-                $headers = "From: merochitra8@gmail.com";  // Your email address
+                try {
+                    // Server settings
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';          // SMTP server
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'merochitra8@gmail.com'; // Your email
+                    $mail->Password = 'your-email-password';  // Your email password
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port = 587;
 
-                if (mail($email, $subject, $message, $headers)) {
+                    // Sender and recipient settings
+                    $mail->setFrom('merochitra8@gmail.com', 'Your Website');
+                    $mail->addAddress($email);
+
+                    // Email content
+                    $resetLink = "http://website.com/reset_password.php?token=$token";
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Password Reset Request';
+                    $mail->Body = "<p>To reset your password, click the following link:</p>
+                                   <a href='$resetLink'>Reset Password</a>
+                                   <p>This link will expire in 1 hour.</p>";
+
+                    // Send the email
+                    $mail->send();
                     echo "Password reset link has been sent to your email.";
-                } else {
-                    echo "Failed to send email. Please try again.";
+                } catch (Exception $e) {
+                    echo "Mailer Error: " . $mail->ErrorInfo;
                 }
             } else {
                 $errors['email'] = "No account found with that email address.";
