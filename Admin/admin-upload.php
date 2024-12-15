@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
                 ':image_url' => $target_file,
                 ':created_at'=>$created_at
             ]);
-            echo "Artwork uploaded successfully.";
+            echo "<script>alert('Artwork uploaded successfully.');</script>";
         } else {
             echo "Error uploading file.";
         }
@@ -37,45 +37,3 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
-<!-- HTML form -->
-<form action="admin-upload.php" method="POST" enctype="multipart/form-data">
-    <label>Artwork Name:</label>
-    <input type="text" name="name" required>
-    <label>Description:</label>
-    <textarea name="description" required></textarea>
-    <label>Price:</label>
-    <input type="number" name="price" step="0.01" required>
-    <label>Upload Image:</label>
-    <input type="file" name="image" id="image-input" required onchange="previewImage(event)">
-    <div id="preview-container">
-        <p>No image selected</p>
-        <img id="preview" style="display:none; max-width: 300px; max-height: 300px;">
-    </div>
-    <button type="submit" name="submit">Upload</button>
-</form>
-
-
-<script>
-    // Function to preview the image
-    function previewImage(event) {
-        const preview = document.getElementById('preview');
-        const previewContainer = document.getElementById('preview-container');
-        const file = event.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-                previewContainer.querySelector('p').style.display = 'none';
-            };
-
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = '';
-            preview.style.display = 'none';
-            previewContainer.querySelector('p').style.display = 'block';
-        }
-    }
-</script>
