@@ -1,0 +1,164 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure body always fills the viewport */
+    background: linear-gradient(to right, #101824, #000e07); /* Darker gradient (darker shades of blue) */
+    color: white;
+    padding: 20px;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    position: relative; /* To position the buttons at the top right */
+}
+
+/* Title for the page */
+h1.form-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Container for artwork boxes */
+.artwork-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px; /* Increased padding for proper spacing */
+    overflow-y: auto; /* Allows scrolling if content exceeds viewport height */
+    flex-grow: 1; /* Ensures the container takes up remaining space */
+    margin-bottom: 20px; /* Add margin to the bottom for spacing */
+}
+
+/* Artwork Box: Each individual card containing the artwork */
+.artwork-box {
+    background: rgba(0, 0, 0, 0.6);
+    width: 250px;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1s ease-in-out;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 280px;
+    margin-bottom: 20px; /* Ensures artwork cards don't overlap */
+}
+
+/* Artwork Image Styling */
+.artwork-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+/* Description Styling (right-aligned and smaller font size) */
+.artwork-details {
+    margin-bottom: 1rem;
+    font-size: 0.9rem; /* Smaller font size for the description */
+    text-align:center;
+    color:rgba(129, 129, 129, 0.844); 
+    /* Align text to the right */
+}
+.art-title{
+    color: white;
+}
+/* Artwork Actions Styling */
+.artwork-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Button Styling */
+.btn {
+    width: 45%;
+    padding: 0.7rem;
+    background: #00d9ff;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #007bb5;
+}
+
+.delete-btn {
+    background: #ff4e4e;
+}
+
+.delete-btn:hover {
+    background: #e33a3a;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Button for adding artwork */
+.btn-add, .btn-manage {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0.8rem 1.2rem;
+    background: #00d9ff;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+.btn-add:hover, .btn-manage:hover {
+    background: #007bb5;
+}
+
+/* Space out the buttons to prevent overlap */
+.btn-add {
+    margin-right: 10px;
+}
+
+/* Fixed Price Display */
+.artwork-price {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #00d9ff;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* Center align the price horizontally */
+    margin-top: 10px;
+}

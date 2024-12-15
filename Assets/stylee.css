@@ -1,0 +1,102 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(to right, #141e30, #243b55);
+    color: white;
+}
+
+h1.form-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.artwork-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.artwork-box {
+    background: rgba(0, 0, 0, 0.6);
+    width: 250px;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1s ease-in-out;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.artwork-image img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.artwork-details {
+    margin-bottom: 1rem;
+}
+
+.artwork-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn {
+    width: 45%;
+    padding: 0.7rem;
+    background: #00d9ff;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #007bb5;
+}
+
+.delete-btn {
+    background: #ff4e4e;
+}
+
+.delete-btn:hover {
+    background: #e33a3a;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
