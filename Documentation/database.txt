@@ -1,0 +1,20 @@
+create database authorization
+
+
+CREATE TABLE users (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    name NVARCHAR(255) NOT NULL,
+    email NVARCHAR(255) NOT NULL UNIQUE,
+    password NVARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL
+);
+
+
+
+CREATE TABLE password_resets (
+    id INT AUTO_INCREMENT PRIMARY KEY,       -- Unique identifier for each reset request
+    email VARCHAR(255) NOT NULL,             -- User's email address (must match the one in the users table)
+    token VARCHAR(255) NOT NULL,             -- Unique token for resetting the password
+    expiry INT NOT NULL,                     -- Expiry time for the token (stored as a UNIX timestamp)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Timestamp when the reset request was created
+);
