@@ -25,7 +25,7 @@ $artworks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="artwork-image">
                     <img src="<?= $artwork['image_url']; ?>" alt="<?= htmlspecialchars($artwork['name']); ?>" style="max-width: 100%;">
                 </div>
-                <div class="art-title">
+                <div class="art-title"c>
                 <h2><?= htmlspecialchars($artwork['name']); ?></h2>
         </div>
                 <div class="artwork-details">
