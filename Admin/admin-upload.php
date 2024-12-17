@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
             // Save to database
             $stmt = $pdo->prepare("INSERT INTO artworks (name, description, price, image_url,created_at) 
-                                   VALUES (:name, :description, :price, :image_url,:created_at,)");
+                                   VALUES (:name, :description, :price, :image_url,:created_at)");
             $stmt->execute([
                 ':name' => $name,
                 ':description' => $description,

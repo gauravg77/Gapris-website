@@ -31,11 +31,22 @@ $artworks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="artwork-details">
                     
                     <p><?= htmlspecialchars($artwork['description']); ?></p>
-                    <p><strong>Price:</strong> $<?= number_format($artwork['price'], 2); ?></p>
+                    <p><strong>Price:</strong> NRs<?= number_format($artwork['price'], 2); ?></p>
                 </div>
+
+
                 <div class="artwork-actions">
-                    <a href="admin-updatestruc.php?id=<?= $artwork['id']; ?>" class="btn">Edit</a>
-                    <a href="admin-deletestruc.php?id=<?= $artwork['id']; ?>" onclick="return confirm('Are you sure you want to delete this item?')" class="btn delete-btn">Delete</a>
+                <a href="admin-updatestruc.php?id=<?= htmlspecialchars($artwork['id']); ?>" 
+   class="btn" 
+   aria-label="Edit artwork <?= htmlspecialchars($artwork['name']); ?>">
+   Edit
+</a>
+                    <a href="admin-delete.php?id=<?= $artwork['id']; ?>" 
+   onclick="return confirm('Are you sure you want to delete this artwork?');" 
+   class="btn delete-btn">
+   Delete
+</a>
+
                 </div>
             </div>
         <?php endforeach; ?>
