@@ -1,24 +1,32 @@
 <?php
 require_once '../Includes/dbConnect.php'; // Database connection
 
-// Check if 'id' is passed in the URL
-if (isset($_GET['id'])) {
+// Check if 'id' exists in the URL
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
 
     try {
-        // Prepare and execute the DELETE query
+        // Prepare the DELETE SQL statement
         $stmt = $pdo->prepare("DELETE FROM artworks WHERE id = :id");
-        $stmt->execute([':id' => $id]);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
-        echo "Artwork deleted successfully.";
-        header("Location: admin-panel.php"); // Redirect to the admin panel after deletion
-        exit();
+        // Execute the query
+        if ($stmt->execute()) {
+            // Redirect back to the main admin panel with success message
+            header("Location: admin-panel.php?message=deleted");
+            exit;
+        } else {
+            // Redirect with error message
+            header("Location: admin-panel.php?message=error");
+            exit;
+        }
     } catch (PDOException $e) {
-        echo "Error deleting artwork: " . $e->getMessage();
-        exit();
+        // Error handling
+        echo "Error: " . $e->getMessage();
     }
 } else {
-    echo "No ID parameter provided.";
-    exit();
+    // Redirect if ID is invalid
+    header("Location: admin-panel.php?message=invalid");
+    exit;
 }
 ?>
