@@ -1,5 +1,5 @@
 <?php 
-require_once 'dbConnect.php'; 
+require_once '../Includes/dbConnect.php';
 require 'vendor/autoload.php';  // Ensure PHPMailer is included
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

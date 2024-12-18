@@ -1,22 +1,21 @@
 <?php
-ob_start(); // Start output buffering
-require_once 'dbConnect.php'; // Database connection file
 session_start();
-
+require_once '../Includes/dbConnect.php';
 $errors = []; // Array to store login errors
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+// Check if the form was submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Email validation
+    // Validate email
     if (empty($email)) {
         $errors['email'] = "Email is required";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "Invalid email format";
     }
 
-    // Password validation
+    // Validate password
     if (empty($password)) {
         $errors['password'] = "Password is required";
     }
@@ -24,12 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     // Proceed if no errors
     if (empty($errors)) {
         try {
-            // Check for user in database
+            // Check if the user exists in the database
             $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
             $stmt->execute(['email' => $email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($user && password_verify($password, $user['password'])) {
+            if ($user !== false && password_verify($password, $user['password'])) {
                 // Login successful: store user info in session
                 $_SESSION['user'] = [
                     'id' => $user['id'],
@@ -37,11 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                     'email' => $user['email']
                 ];
 
-                // Redirect to shop.php after successful login
-                header("Location: shop.php");
+                // Redirect to index.php after successful login
+                header("Location:artwork-gallery.php");
                 exit(); // Stop script execution
             } else {
-                $errors['login'] = "Invalid email or password.";
+                echo "Invalid email or password.";
             }
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
@@ -49,10 +48,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     }
 }
 
-// Display errors if any
-if (!empty($errors)) {
-    foreach ($errors as $error) {
-        echo "<p style='color:red;'>$error</p>";
-    }
-}
 ?>
+

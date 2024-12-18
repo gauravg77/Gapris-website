@@ -1,4 +1,4 @@
-<!-- forgot_password.php -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

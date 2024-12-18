@@ -1,5 +1,5 @@
 <?php
-require_once 'dbConnect.php';
+require_once '../Includes/dbConnect.php';
 
 if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['signup']))
 {
@@ -40,8 +40,8 @@ if (empty($errors)) {
             'created_at' => $created_at
         ]);
 
-        // Redirect to shop.php on successful registration
-        header("Location: shop.php");
+        // Redirect to index.php on successful registration
+        header("Location: index.php");
         exit(); // Ensure the script stops executing after redirection
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
