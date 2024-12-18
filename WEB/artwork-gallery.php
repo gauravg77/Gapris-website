@@ -30,7 +30,7 @@ $artworks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="artwork-details">
                     <h2><?= htmlspecialchars($artwork['name']); ?></h2>
                     <p><?= htmlspecialchars($artwork['description']); ?></p>
-                    <p><strong>Price:</strong> N<?= number_format($artwork['price'], 2); ?></p>
+                    <p><strong>Price:</strong>रु<?= number_format($artwork['price'], 2); ?></p>
                     <a href="user-orderstruc.php?id=<?= $artwork['id']; ?>" class="btn">Buy Now</a>
                 </div>
             </div>
