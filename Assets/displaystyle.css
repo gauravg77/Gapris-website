@@ -11,8 +11,9 @@ body {
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
+    background: linear-gradient(to right, #141e30, #243b55);
+
     min-height: 100vh; /* Ensure body always fills the viewport */
-    background: linear-gradient(to right, #101824, #000e07); /* Darker gradient (darker shades of blue) */
     color: white;
     padding: 20px;
     overflow-x: hidden; /* Prevent horizontal scrolling */

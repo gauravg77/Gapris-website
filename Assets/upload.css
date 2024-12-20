@@ -12,7 +12,7 @@ body {
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    background: linear-gradient(to right, #141e30, #243b55);
+    background: linear-gradient(to right,#120d1d, #012412); /* Darker gradient */
     color: white;
 }
 

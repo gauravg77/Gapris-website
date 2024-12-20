@@ -1,0 +1,195 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(to right,#120d1d, #012412); /* Darker gradient */
+    color: white;
+    padding: 20px;
+    font-size: 1rem;
+}
+
+/* Title for the page */
+h1.form-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff; /* Bright white */
+}
+
+/* Artwork Container */
+.artwork-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next row */
+    justify-content: center;
+    gap: 20px; /* Space between artworks */
+    padding: 20px;
+}
+
+/* Artwork Box: Each individual card */
+.artwork-box {
+    display: flex;
+    flex-direction: row; /* Align image and details side by side */
+    background: rgba(0, 0, 0, 0.595);
+    width: 48%; /* Two artworks per row (adjustable) */
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1s ease-in-out;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Artwork Image */
+.artwork-image {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.artwork-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Artwork Details */
+.artwork-details {
+    flex: 1;
+    text-align: left;
+}
+
+/* Title Styling */
+.artwork-details h2 {
+    color: #ffffff; /* Bright white title */
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Artwork Description */
+.artwork-details p {
+    color: #ccc; /* Light grey for description */
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+/* Artwork Price */
+.artwork-details strong {
+    font-weight: 600;
+}
+
+/* "Buy Now" button */
+.btn {
+    background-color: #e74c3c; /* Red color for Buy Now button */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+/* Header to position the logout button */
+.header {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Style for the logout button */
+.logout-btn {
+    background-color: #f44336; /* Red background */
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.logout-btn:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .artwork-box {
+        width: 100%; /* Single column for smaller screens */
+        flex-direction: column; /* Stack image and details vertically */
+    }
+
+    .artwork-image {
+        margin-bottom: 20px;
+    }
+}
+/* Style for artwork box */
+.artwork-box {
+    position: relative;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effect: show the transparent button */
+.artwork-box:hover .view-btn {
+    opacity: 1;
+}
+
+/* Button to view the image */
+.view-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Modal background style */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* To blur the background */
+}
+
+/* Modal content (the enlarged image) */
+.modal-content {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+/* Close button for the modal */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}

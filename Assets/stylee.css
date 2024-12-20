@@ -10,86 +10,101 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    background: linear-gradient(to right, #141e30, #243b55);
+    height: 100vh; /* Full viewport height */
+    background: linear-gradient(to right,#120d1d, #012412); /* Darker gradient */
     color: white;
+    overflow: hidden;
 }
 
-h1.form-title {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
-}
-
-.artwork-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 10px;
-}
-
-.artwork-box {
+/* Container for the login form */
+.container {
     background: rgba(0, 0, 0, 0.6);
-    width: 250px;
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
-    animation: fadeIn 1s ease-in-out;
+    width: 350px;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    animation: fadeIn 1s ease-in-out;
 }
 
-.artwork-image img {
-    width: 100%;
+/* Form Title */
+h1.form-title {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+}
+
+/* Input Group Styling */
+.input-group {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.8rem;
+    margin-bottom: 1rem;
     border-radius: 5px;
-    margin-bottom: 1rem;
 }
 
-.artwork-details {
-    margin-bottom: 1rem;
+.input-group i {
+    color: #00d9ff;
+    margin-right: 10px;
+    font-size: 1rem;
 }
 
-.artwork-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+.input-group input {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    width: 100%;
+    font-size: 1rem;
 }
 
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Submit Button */
 .btn {
-    width: 45%;
-    padding: 0.7rem;
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
     background: #00d9ff;
     border: none;
     outline: none;
-    color: #fff;
+    color: white;
     border-radius: 5px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
-    text-align: center;
-    text-decoration: none;
 }
 
 .btn:hover {
     background: #007bb5;
 }
 
-.delete-btn {
-    background: #ff4e4e;
+/* Links Styling */
+.links {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-.delete-btn:hover {
-    background: #e33a3a;
+.links a {
+    color: #00d9ff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
 }
 
+.links a:hover {
+    color: #007bb5;
+    text-decoration: underline;
+}
+
+/* Fade-in Animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
