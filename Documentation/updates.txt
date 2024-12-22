@@ -20,7 +20,13 @@
 
 12/13/2024-working on midterm documentation.
 
-12/13/2024-working on password recovery module. ( learning about mercury and thunderbird)
+12/13/2024-working on password recovery module. ( learning about mercury and thunderbird) 
+
+12/20/2024-DB backup done
+
+
+
+12/22/2024-working on password recovery module. (still not fixed)
 
 
 
