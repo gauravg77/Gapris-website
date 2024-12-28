@@ -34,10 +34,11 @@
 
 12/25/2024-working on documentation updates. 
 
-2/26/2024-working on documentation updates.(creating  dfd digitally)
+12/26/2024-working on documentation updates.(creating  dfd digitally)
 
-2/26/2024-working on documentation updates.no updates in coding.
+12/27/2024-working on documentation updates.no updates in coding.
 
+12/28/2024-cloned the repo to send main ( worked successfully). While pushing it , it didn't allowed me to push to the repo since i have only access to read. and then i changed the repo url to my git repo, but it pushed as master. im educating myself on how to duplicating it .
 
 
 
