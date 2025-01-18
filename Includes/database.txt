@@ -43,3 +43,9 @@ CREATE TABLE orders (
     FOREIGN KEY (artwork_id) REFERENCES artworks(id)
 );
 
+added two columns in user table
+
+ALTER TABLE users
+ADD COLUMN reset_token VARCHAR(255) DEFAULT NULL,
+ADD COLUMN expiry DATETIME DEFAULT NULL;
+
