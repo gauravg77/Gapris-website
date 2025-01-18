@@ -1,75 +1,82 @@
 <?php
-require 'utils/PHPMailer/src/PHPMailer.php';
-require 'utils/PHPMailer/src/SMTP.php';
-require 'utils/PHPMailer/src/Exception.php';
-require 'constants.php'; // Contains database connection details, SMTP_HOST, SMTP_USERNAME, SMTP_PASSWORD
+// Include necessary files for PHPMailer and database connection
+require './utils/PHPMailer/src/PHPMailer.php';
+require './utils/PHPMailer/src/SMTP.php';
+require './utils/PHPMailer/src/Exception.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Update with your actual paths and database details
+require 'constants.php';
+require 'dbConnect.php'; // Include your database connection file
+
+$message = ''; // Initialize message variable
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Sanitize and validate form inputs
     $email = htmlspecialchars($_POST['email']);
 
-    try {
-        // Database connection
-        $pdo = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Check if the email exists in the user_login table
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-        // Check if email exists in the users table
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = :email");
-        $stmt->bindParam(':email', $email);
+    if ($result->num_rows > 0) {
+        date_default_timezone_set('Asia/Kathmandu'); // Set the time zone to Nepal Time (NPT)
+
+        // User found, generate a unique token for password reset
+        $token = bin2hex(random_bytes(50)); // 50 bytes = 100 characters
+        $expiry = date("Y-m-d H:i:s", strtotime('+1 hour')); // Token expires in 1 hour
+
+        // Update the user_login table with the reset token and expiry
+        $stmt = $conn->prepare("UPDATE users SET reset_token = ?, expiry = ? WHERE email = ?");
+        $stmt->bind_param("sss", $token, $expiry, $email);
         $stmt->execute();
 
-        if ($stmt->rowCount() > 0) {
-            // Generate unique token
-            $token = bin2hex(random_bytes(32));
-            $expiry = time() + 3600; // Token valid for 1 hour
+        // Prepare the reset password link
+        $reset_link = "hello" . $token;
 
-            // Insert token into password_resets table
-            $stmt = $pdo->prepare(
-                "INSERT INTO password_resets (email, token, expiry) VALUES (:email, :token, :expiry)"
-            );
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':token', $token);
-            $stmt->bindParam(':expiry', $expiry);
-            $stmt->execute();
+        // PHPMailer setup
+        $mail = new PHPMailer(true);
 
-            // Prepare the reset link
-            $resetLink = "http://yourwebsite.com/reset_password.php?token=$token";
+        try {
+            $mail->isSMTP();
+            $mail->Host = SMTP_HOST;
+            $mail->SMTPAuth = true;
+            $mail->Username = SMTP_USERNAME;
+            $mail->Password = SMTP_PASSWORD;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
 
-            // Send the reset email
-            $mail = new PHPMailer(true);
+            $mail->setFrom('your-email@gmail.com', 'Gapris Collection');
+            $mail->addAddress($email); // Send the email to the user
+            $mail->Subject = 'Password Reset Request';
+            $mail->Body = "You requested a password reset. Click the link below to reset your password:\n\n" .
+                          "$reset_link\n\n" .
+                          "If you did not request this, please ignore this email.";
 
-            try {
-                $mail->isSMTP();
-                $mail->Host = SMTP_HOST;
-                $mail->SMTPAuth = true;
-                $mail->Username = SMTP_USERNAME;
-                $mail->Password = SMTP_PASSWORD;
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port = 587;
-
-                $mail->setFrom(SMTP_USERNAME, 'Your Website');
-                $mail->addAddress($email);
-
-                $mail->Subject = 'Password Recovery';
-                $mail->Body = "Hi,\n\nClick the link below to reset your password:\n\n$resetLink\n\nIf you did not request this, please ignore this email.";
-
-                if ($mail->send()) {
-                    echo "A password reset link has been sent to your email.";
-                } else {
-                    echo "Failed to send the email.";
-                }
-            } catch (Exception $e) {
-                echo "Mailer Error: " . $mail->ErrorInfo;
+            // Send the email and check if it was successful
+            if ($mail->send()) {
+                $message = "A password reset link has been sent to your email!";
+            } else {
+                $message = "Failed to send password reset email.";
             }
-        } else {
-            echo "No account found with this email.";
+        } catch (Exception $e) {
+            $message = "Error: {$mail->ErrorInfo}";
         }
-    } catch (PDOException $e) {
-        echo "Database Error: " . $e->getMessage();
+    } else {
+        $message = "No account found with that email.";
     }
-} else {
-    echo "Invalid request method.";
+
+    // Redirect to the same page with a success or error message
+    header("Location: " . $_SERVER['PHP_SELF'] . "?message=" . urlencode($message));
+    exit();
+}
+
+// Handle messages passed through the query string
+if (isset($_GET['message'])) {
+    $message = htmlspecialchars($_GET['message']);
 }
 ?>
