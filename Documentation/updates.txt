@@ -42,6 +42,7 @@
 
 1/1/2025-working on documentation updates.
 
+1/17/2025-working on pw recovery.( i found the loophole. i create a new db for password reset where every reset used to be recorded as new token instead of updating same id  which wasn't a good idea. so i updated the users table and kept the token there.
 
 
 
