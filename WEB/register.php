@@ -41,7 +41,7 @@ if (empty($errors)) {
         ]);
 
         // Redirect to index.php on successful registration
-        header("Location: index.php");
+        header("Location: loginstruc.php");
         exit(); // Ensure the script stops executing after redirection
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();

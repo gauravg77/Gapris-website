@@ -1,6 +1,7 @@
 <?php
-session_start();
-require_once '../Includes/dbConnect.php';
+session_start(); // Start the session
+
+require_once '../Includes/dbConnect.php'; 
 $errors = []; // Array to store login errors
 
 // Check if the form was submitted
@@ -36,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'email' => $user['email']
                 ];
 
-                // Redirect to index.php after successful login
-                header("Location:artwork-gallery.php");
+                // Redirect to artwork-gallery.php after successful login
+                header("Location: artwork-gallery.php");
                 exit(); // Stop script execution
             } else {
                 echo "Invalid email or password.";
@@ -47,6 +48,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <form action="" method="post">
+        <input type="email" name="email" required placeholder="Enter your email">
+        <input type="password" name="password" required placeholder="Enter your password">
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
