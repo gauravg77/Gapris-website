@@ -31,8 +31,8 @@ $artworks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <h2><?= htmlspecialchars($artwork['name']); ?></h2>
                     <p><?= htmlspecialchars($artwork['description']); ?></p>
                     <p><strong>Price:</strong>रु<?= number_format($artwork['price'], 2); ?></p>
-                    <a href="user-orderstruc.php?id=<?= $artwork['id']; ?>" class="btn">Buy Now</a>
-                </div>
+                    <a href="checkout.php?id=<?= $artwork['id']; ?>&name=<?= urlencode($artwork['name']); ?>&price=<?= $artwork['price']; ?>" class="btn">Buy Now</a>
+                    </div>
             </div>
         <?php endforeach; ?>
     </div>

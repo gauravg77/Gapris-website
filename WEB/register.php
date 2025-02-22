@@ -51,8 +51,6 @@ if (empty($errors)) {
         echo "<p>$error</p>";
     }
 }
-
-
 }
 ?>
 
