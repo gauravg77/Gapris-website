@@ -7,11 +7,11 @@ require './utils/PHPMailer/src/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Update with your actual paths and database details
 require 'constants.php';
 require 'dbConnect.php'; // Include your database connection file
 
 $message = ''; // Initialize message variable
+$popup_class = ''; // Class to toggle visibility
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Sanitize and validate form inputs
@@ -24,19 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        date_default_timezone_set('Asia/Kathmandu'); // Set the time zone to Nepal Time (NPT)
+        date_default_timezone_set('Asia/Kathmandu'); // Set Nepal Time (NPT)
 
-        // User found, generate a unique token for password reset
-        $token = bin2hex(random_bytes(50)); // 50 bytes = 100 characters
-        $expiry = date("Y-m-d H:i:s", strtotime('+1 hour')); // Token expires in 1 hour
+        // Generate a unique token for password reset
+        $token = bin2hex(random_bytes(50)); 
+        $expiry = date("Y-m-d H:i:s", strtotime('+1 hour')); 
 
-        // Update the user_login table with the reset token and expiry
+        // Update the database with the reset token and expiry
         $stmt = $conn->prepare("UPDATE users SET reset_token = ?, expiry = ? WHERE email = ?");
         $stmt->bind_param("sss", $token, $expiry, $email);
         $stmt->execute();
 
         // Prepare the reset password link
-        $reset_link = "hello" . $token;
+        $reset_link = "http://yourwebsite.com/reset_password.php?token=" . $token;
 
         // PHPMailer setup
         $mail = new PHPMailer(true);
@@ -51,32 +51,84 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $mail->Port = 587;
 
             $mail->setFrom('your-email@gmail.com', 'Gapris Collection');
-            $mail->addAddress($email); // Send the email to the user
+            $mail->addAddress($email);
             $mail->Subject = 'Password Reset Request';
-            $mail->Body = "You requested a password reset. Click the link below to reset your password:\n\n" .
-                          "$reset_link\n\n" .
+            $mail->Body = "You requested a password reset. Click the link below to reset your password:\n\n" . 
+                          "$reset_link\n\n" . 
                           "If you did not request this, please ignore this email.";
 
-            // Send the email and check if it was successful
+            // Send the email and check if successful
             if ($mail->send()) {
                 $message = "A password reset link has been sent to your email!";
+                $popup_class = 'show-popup'; // Show popup
             } else {
                 $message = "Failed to send password reset email.";
+                $popup_class = 'show-popup'; // Show popup
             }
         } catch (Exception $e) {
             $message = "Error: {$mail->ErrorInfo}";
+            $popup_class = 'show-popup'; // Show popup
         }
     } else {
         $message = "No account found with that email.";
+        $popup_class = 'show-popup'; // Show popup
     }
-
-    // Redirect to the same page with a success or error message
-    header("Location: " . $_SERVER['PHP_SELF'] . "?message=" . urlencode($message));
-    exit();
-}
-
-// Handle messages passed through the query string
-if (isset($_GET['message'])) {
-    $message = htmlspecialchars($_GET['message']);
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .show-popup {
+            display: block;
+        }
+        .popup button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .popup button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Popup message -->
+<div id="popupMessage" class="popup <?php echo $popup_class; ?>">
+    <p><?php echo $message; ?></p>
+    <button onclick="closePopup()">OK</button>
+</div>
+
+<form action="" method="post">
+    <input type="email" name="email" required placeholder="Enter your email">
+    <button type="submit">Send Reset Link</button>
+</form>
+
+<script>
+    function closePopup() {
+        document.getElementById("popupMessage").style.display = "none";
+    }
+</script>
+
+</body>
+</html>
