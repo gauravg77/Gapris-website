@@ -14,7 +14,7 @@
     <label for="name" class="form-label">Artwork Name:</label>
     <input type="text" name="name" id="name" class="form-input" required>
     
-    <label for="description" class="form-label">Description:</label>
+    <label for="description" class="form-label">Description ( with size and medium ):</label>
     <textarea name="description" id="description" class="form-input" required></textarea>
     
     <label for="price" class="form-label">Price:</label>
@@ -29,6 +29,7 @@
     </div>
     
     <button type="submit" name="submit" class="btn-submit">Upload</button>
+    
     <br>
     <a href="admin-panel.php">Back to Admin Panel</a>
 

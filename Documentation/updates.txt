@@ -44,6 +44,7 @@
 
 1/17/2025-working on pw recovery.( i found the loophole. i create a new db for password reset where every reset used to be recorded as new token instead of updating same id  which wasn't a good idea. so i updated the users table and kept the token there.
 
+1/18/2025:working on pw recovery. First ma the length was 64 bit telle gardai half token matra mail bhayo and later fixed it by making it  255 bit.
 
 
 

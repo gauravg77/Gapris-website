@@ -3,22 +3,32 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Karmatic Arcade', sans-serif; /* Use Karmatic Arcade font by default */
 }
 
+/* Load the custom font (Karmatic Arcade) */
+@font-face {
+    font-family: 'Karmatic Arcade'; /* Name for the font */
+    src: url('../Assets/ka1.ttf') format('truetype'); /* Path to the .ttf file relative to the CSS file */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Body styling */
 body {
-    background: linear-gradient(to right,#120d1d, #012412); /* Darker gradient */
+    background: linear-gradient(to right, #120d1d, #012412); /* Darker gradient */
     color: white;
     padding: 20px;
     font-size: 1rem;
 }
 
 /* Title for the page */
-h1.form-title {
+#form-title {
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2.5rem;
     font-weight: 700;
+    font-family: 'Karmatic Arcade', sans-serif;
     color: #ffffff; /* Bright white */
 }
 
@@ -100,6 +110,7 @@ h1.form-title {
 .btn:hover {
     background-color: #c0392b; /* Darker red on hover */
 }
+
 /* Header to position the logout button */
 .header {
     position: absolute;
@@ -109,12 +120,15 @@ h1.form-title {
 
 /* Style for the logout button */
 .logout-btn {
-    background-color: #f44336; /* Red background */
+    position: relative;
+    top: 100px; /* Adjust this value to move it further down */
+    right: 20px; /* Optional: Adjust the right margin */
     color: white;
-    padding: 10px 15px;
+    font-size: 18px;
+    background-color: red;
+    padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 16px;
 }
 
 .logout-btn:hover {
@@ -132,6 +146,7 @@ h1.form-title {
         margin-bottom: 20px;
     }
 }
+
 /* Style for artwork box */
 .artwork-box {
     position: relative;

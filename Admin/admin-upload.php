@@ -28,6 +28,8 @@ if (isset($_POST['submit'])) {
                 ':created_at'=>$created_at,
                 // ':available' => 1
             ]);
+            header("Location: admin-panel.php");
+
             echo "<script>alert('Artwork uploaded successfully.');</script>";
         } else {
             echo "Error uploading file.";

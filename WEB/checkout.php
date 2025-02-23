@@ -1,10 +1,23 @@
 <?php
 session_start();
+require_once '../Includes/dbConnect.php';
+
+// Ensure the user is logged in
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php"); // Redirect to login page if not logged in
+    exit();
+}
+
+// Get user details from session
+$userId = $_SESSION['user']['id'];
+$userName = $_SESSION['user']['name'];
+$userEmail = $_SESSION['user']['email'];
 
 // Get artwork details from URL parameters
 $artworkId = isset($_GET['id']) ? $_GET['id'] : '';
 $artworkName = isset($_GET['name']) ? urldecode($_GET['name']) : '';
 $artworkPrice = isset($_GET['price']) ? $_GET['price'] : '';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,11 +59,11 @@ $artworkPrice = isset($_GET['price']) ? $_GET['price'] : '';
             <label for="">Customer Details:</label>
             <div class="col-12">
                 <label for="inputName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="inputName" name="inputName" required>
+                <input type="text" class="form-control" id="inputName" name="inputName" value="<?= htmlspecialchars($userName); ?>" readonly>
             </div>
             <div class="col-md-6">
                 <label for="inputEmail" class="form-label">Email</label>
-                <input type="text" class="form-control" id="inputEmail" name="inputEmail" required>
+                <input type="text" class="form-control" id="inputEmail" name="inputEmail" value="<?= htmlspecialchars($userEmail); ?>" readonly>
             </div>
             <div class="col-md-6">
                 <label for="inputPhone" class="form-label">Phone</label>

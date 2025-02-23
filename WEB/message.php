@@ -13,7 +13,9 @@
 
 <body>
     <?php
+
     session_start();
+    header("Refresh: 3; URL=artwork-gallery.php");
     if (isset($_SESSION['transaction_msg'])) {
         echo $_SESSION['transaction_msg'];
         unset($_SESSION['transaction_msg']);

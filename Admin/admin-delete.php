@@ -6,22 +6,28 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
 
     try {
-        // Prepare the DELETE SQL statement
-        $stmt = $pdo->prepare("DELETE FROM artworks WHERE id = :id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        // Begin transaction to ensure atomicity
+        $pdo->beginTransaction();
 
-        // Execute the query
-        if ($stmt->execute()) {
-            // Redirect back to the main admin panel with success message
-            header("Location: admin-panel.php?message=deleted");
-            exit;
-        } else {
-            // Redirect with error message
-            header("Location: admin-panel.php?message=error");
-            exit;
-        }
+        // Delete dependent orders first to avoid foreign key constraint error
+        $stmt1 = $pdo->prepare("DELETE FROM orders WHERE artwork_id = :id");
+        $stmt1->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt1->execute();
+
+        // Now delete the artwork
+        $stmt2 = $pdo->prepare("DELETE FROM artworks WHERE id = :id");
+        $stmt2->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt2->execute();
+
+        // Commit transaction if both deletions succeed
+        $pdo->commit();
+
+        // Redirect back to the admin panel with success message
+        header("Location: admin-panel.php?message=deleted");
+        exit;
     } catch (PDOException $e) {
-        // Error handling
+        // Rollback if any error occurs
+        $pdo->rollBack();
         echo "Error: " . $e->getMessage();
     }
 } else {

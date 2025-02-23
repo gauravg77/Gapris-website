@@ -49,3 +49,23 @@ ALTER TABLE users
 ADD COLUMN reset_token VARCHAR(255) DEFAULT NULL,
 ADD COLUMN expiry DATETIME DEFAULT NULL;
 
+ALTER TABLE artworks
+ADD COLUMN size VARCHAR(100),
+ADD COLUMN medium VARCHAR(100);
+
+ALTER TABLE orders ADD COLUMN payment_status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending';
+
+ALTER TABLE artworks ADD COLUMN sold INT DEFAULT 0;
+
+CREATE TABLE bids (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    artwork_id INT,
+    user_id INT,
+    bid_amount DECIMAL(10, 2),
+    bid_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (artwork_id) REFERENCES artworks(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+ALTER TABLE artworks ADD current_bid DECIMAL(10, 2) DEFAULT 0;
+
